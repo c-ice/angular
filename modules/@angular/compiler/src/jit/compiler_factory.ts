@@ -40,7 +40,7 @@ const _NO_RESOURCE_LOADER: ResourceLoader = {
           `No ResourceLoader implementation has been provided. Can't read the url "${url}"`);}
 };
 
-const baseHtmlParser = new InjectionToken('HtmlParser');
+export const baseHtmlParserToken = new InjectionToken('HtmlParser');
 
 /**
  * A set of providers that provide `JitCompiler` and its dependencies to use for
@@ -55,7 +55,7 @@ export const COMPILER_PROVIDERS: Array<any|Type<any>|{[k: string]: any}|any[]> =
   Lexer,
   Parser,
   {
-    provide: baseHtmlParser,
+    provide: baseHtmlParserToken,
     useClass: HtmlParser,
   },
   {
@@ -65,7 +65,7 @@ export const COMPILER_PROVIDERS: Array<any|Type<any>|{[k: string]: any}|any[]> =
                     new i18n.I18NHtmlParser(
                         parser, translations, format, config.missingTranslation, console),
     deps: [
-      baseHtmlParser,
+      baseHtmlParserToken,
       [new Optional(), new Inject(TRANSLATIONS)],
       [new Optional(), new Inject(TRANSLATIONS_FORMAT)],
       [CompilerConfig],
